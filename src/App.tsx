@@ -17,7 +17,6 @@ function App() {
   const onFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
-    console.log(file.name);
     const url = URL.createObjectURL(file);
     setFileName(file.name);
     setAudioUrl(url);
