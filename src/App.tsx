@@ -1,7 +1,11 @@
 import { useRef, useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import Visualizer from "./components/Visualizer";
+import { OrbitControls } from "@react-three/drei";
 import { AudioAnalyzer } from "./lib/audio";
+import Wave from "./components/Wave";
+import { EffectComposer } from "@react-three/postprocessing";
+
 function App() {
   const [analyzer, setAnalyzer] = useState<AudioAnalyzer | null>(null);
   const [audioUrl, setAudioUrl] = useState<string | null>(null);
@@ -24,8 +28,16 @@ function App() {
           backgroundColor: "#131313",
         }}
       >
+        <ambientLight />
+        <OrbitControls />
+        <Wave />
         {analyzer && (
-          <Visualizer analyzer={analyzer} color={0x34ebcc} lineWidth={0.05} />
+          <Visualizer
+            analyzer={analyzer}
+            color={0x34ebcc}
+            lineWidth={0.03}
+            segments={300}
+          />
         )}
       </Canvas>
       <div className="w-full flex justify-center items-center h-[80px] px-4">
