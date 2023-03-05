@@ -11,11 +11,14 @@ function App() {
   const [audioUrl, setAudioUrl] = useState<string | null>(null);
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
   const audioElmRef = useRef<HTMLAudioElement>(null!);
+  const [fileName, setFileName] = useState<String | null>(null);
 
   const onFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
+    console.log(file.name);
     const url = URL.createObjectURL(file);
+    setFileName(file.name);
     setAudioUrl(url);
     setAnalyzer(new AudioAnalyzer(audioElmRef.current));
   };
@@ -25,7 +28,7 @@ function App() {
       <Canvas
         style={{
           width: "100vw",
-          height: "calc(100vh - 80px)",
+          height: "100vh",
           backgroundColor: "#131313",
         }}
       >
@@ -51,10 +54,14 @@ function App() {
             color={0x34ebcc}
             lineWidth={0.03}
             segments={300}
+            radius={1.5}
           />
         )}
       </Canvas>
-      <div className="w-full flex justify-center items-center h-[80px] px-4">
+      <h1 className="absolute top-[80px] left-1/2 -translate-x-1/2 font-outline text-center">
+        {fileName}
+      </h1>
+      <div className="w-full flex justify-center items-center absolute bottom-0 text-[#34ebcc] h-[80px] px-4">
         <input type="file" accept="audio/*" onChange={onFileChange} />
         <audio
           controls
