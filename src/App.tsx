@@ -5,6 +5,7 @@ import { OrbitControls } from "@react-three/drei";
 import { AudioAnalyzer } from "./lib/audio";
 import Wave from "./components/Wave";
 import { EffectComposer, Bloom, Glitch } from "@react-three/postprocessing";
+import { Vector2 } from "three";
 
 function App() {
   const [analyzer, setAnalyzer] = useState<AudioAnalyzer | null>(null);
@@ -45,7 +46,11 @@ function App() {
             luminanceSmoothing={0.5}
             intensity={1}
           />
-          <Glitch delay={[0.5, 2]} duration={[0.1, 0.2]} active={isPlaying} />
+          <Glitch
+            delay={new Vector2(0.5, 2)}
+            duration={new Vector2(0.1, 0.2)}
+            active={isPlaying}
+          />
         </EffectComposer>
         <Wave />
         {analyzer && (
