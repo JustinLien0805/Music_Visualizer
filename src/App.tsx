@@ -4,11 +4,12 @@ import Visualizer from "./components/Visualizer";
 import { OrbitControls } from "@react-three/drei";
 import { AudioAnalyzer } from "./lib/audio";
 import Wave from "./components/Wave";
-import { EffectComposer } from "@react-three/postprocessing";
+import { EffectComposer, Bloom, Glitch } from "@react-three/postprocessing";
 
 function App() {
   const [analyzer, setAnalyzer] = useState<AudioAnalyzer | null>(null);
   const [audioUrl, setAudioUrl] = useState<string | null>(null);
+  const [isPlaying, setIsPlaying] = useState<boolean>(false);
   const audioElmRef = useRef<HTMLAudioElement>(null!);
 
   const onFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -29,7 +30,20 @@ function App() {
         }}
       >
         <ambientLight />
-        <OrbitControls />
+        <OrbitControls
+          enablePan={false}
+          enableZoom={false}
+          enableRotate={false}
+        />
+
+        <EffectComposer>
+          <Bloom
+            luminanceThreshold={0}
+            luminanceSmoothing={0.5}
+            intensity={1}
+          />
+          <Glitch delay={[0.5, 2]} duration={[0.1, 0.2]} active={isPlaying} />
+        </EffectComposer>
         <Wave />
         {analyzer && (
           <Visualizer
@@ -42,7 +56,17 @@ function App() {
       </Canvas>
       <div className="w-full flex justify-center items-center h-[80px] px-4">
         <input type="file" accept="audio/*" onChange={onFileChange} />
-        <audio controls ref={audioElmRef} src={audioUrl ?? undefined} />
+        <audio
+          controls
+          ref={audioElmRef}
+          src={audioUrl ?? undefined}
+          onPlay={() => {
+            setIsPlaying(true);
+          }}
+          onPause={() => {
+            setIsPlaying(false);
+          }}
+        />
       </div>
     </div>
   );
