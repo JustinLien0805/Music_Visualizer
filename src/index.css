@@ -2,9 +2,3 @@
 @tailwind components;
 @tailwind utilities;
 
-.font-outline {
-    font-size: 2rem;
-    -webkit-text-stroke: 1px #34ebcc;
-    -webkit-text-fill-color: transparent;
-    overflow: hidden;
-  }

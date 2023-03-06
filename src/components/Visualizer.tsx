@@ -35,7 +35,7 @@ export default function Visualizer({
       const angle = i * (360 / segments);
       const theta = radians(angle);
       const value =
-        normalizeBetween(fft[i < segments ? i : 0], 0, 255) * height * 2;
+        normalizeBetween(fft[i < segments ? i : 0], 0, 255) * height;
       const x = (radius + value) * Math.cos(theta);
       const y = -(radius + value) * Math.sin(theta);
       points.push(x, y, 0);

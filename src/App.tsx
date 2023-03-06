@@ -6,6 +6,7 @@ import { AudioAnalyzer } from "./lib/audio";
 import Wave from "./components/Wave";
 import { EffectComposer, Bloom, Glitch } from "@react-three/postprocessing";
 import { Vector2 } from "three";
+import Record from "./components/Record";
 
 function App() {
   const [analyzer, setAnalyzer] = useState<AudioAnalyzer | null>(null);
@@ -60,14 +61,11 @@ function App() {
             color={0x34ebcc}
             lineWidth={0.03}
             segments={200}
-            radius={1.5}
             height={audioElmRef.current.volume}
           />
         )}
       </Canvas>
-      <h1 className="absolute top-[80px] left-1/2 -translate-x-1/2 font-outline text-center">
-        {fileName}
-      </h1>
+      {fileName && <Record text={fileName.toString()} />}
       <div className="w-full flex justify-center items-center absolute bottom-0 text-[#34ebcc] h-[80px] px-4">
         <input type="file" accept="audio/*" onChange={onFileChange} />
         <audio
