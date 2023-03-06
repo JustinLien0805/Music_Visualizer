@@ -8,8 +8,9 @@ const noise3D = createNoise3D();
 type Props = {
   color?: number;
   segments?: number;
+  y?: number;
 };
-const Wave = ({ color = 0xa23deb, segments = 100 }: Props) => {
+const Wave = ({ color = 0xa23deb, segments = 100, y = -4 }: Props) => {
   const meshRef = useRef<Mesh>(null!);
   const geoRef = useRef<PlaneGeometry>(null!);
   const timeRef = useRef(0);
@@ -38,7 +39,7 @@ const Wave = ({ color = 0xa23deb, segments = 100 }: Props) => {
       <mesh
         ref={meshRef}
         rotation={[-Math.PI * 0.5, 0, 0]}
-        position={[0, -4, 0]}
+        position={[0, y, 0]}
       >
         <planeGeometry ref={geoRef} args={[100, 100, segments, segments]} />
         <meshStandardMaterial wireframe color={color} />

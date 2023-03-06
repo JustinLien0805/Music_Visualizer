@@ -11,6 +11,7 @@ function App() {
   const [analyzer, setAnalyzer] = useState<AudioAnalyzer | null>(null);
   const [audioUrl, setAudioUrl] = useState<string | null>(null);
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
+  const [visualizerHeight, setViisualizerHeight] = useState<number>(1);
   const audioElmRef = useRef<HTMLAudioElement>(null!);
   const [fileName, setFileName] = useState<String | null>(null);
 
@@ -51,14 +52,16 @@ function App() {
             active={isPlaying}
           />
         </EffectComposer>
+        <Wave y={12} />
         <Wave />
         {analyzer && (
           <Visualizer
             analyzer={analyzer}
             color={0x34ebcc}
             lineWidth={0.03}
-            segments={300}
+            segments={200}
             radius={1.5}
+            height={audioElmRef.current.volume}
           />
         )}
       </Canvas>
