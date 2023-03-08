@@ -32,7 +32,7 @@ export default function Visualizer({
     const fft = analyzer.getFft();
     const points: number[] = [];
     for (let i = 0; i <= segments; i++) {
-      const angle = i * (360 / segments);
+      const angle = i * (360 / segments) - 95;
       const theta = radians(angle);
       const value =
         normalizeBetween(fft[i < segments ? i : 0], 0, 255) * height;
